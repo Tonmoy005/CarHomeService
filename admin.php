@@ -3,6 +3,7 @@
  
 <head>
   <title>Admin Panel</title>
+  <link rel="stylesheet" href="style_admin.css"> 
 </head>
  
 <body>
@@ -94,12 +95,12 @@
         <option value="vehicle">Vehicle Report</option>
         <option value="service">Service Report</option>
       </select>
- 
+
       <button type="submit">Generate Report</button>
     </form>
     <br>
     <p>This is a demo and under construction</p>
-    <p>Creating by Kazi Roshid Ahammod Rohollah and Tonmoy sarker </p>
+    <p>Creating by Kazi Roshid Ahammod Rohollah and Tonmoy Kumar Sarker </p>
   </fieldset>
 </body>
  
