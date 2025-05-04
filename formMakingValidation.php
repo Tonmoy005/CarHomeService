@@ -16,7 +16,7 @@ $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["first_name"])) {
-        $errors[] = "First Name is required";
+        $errors[] = "Invalid name";
     } else {
         $first_name = clean_input($_POST["first_name"]);
         if (!preg_match("/^[a-zA-Z-' ]*$/", $first_name)) {
@@ -102,6 +102,8 @@ function clean_input($data) {
 
 <h2>Register</h2>
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on">
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on" novalidate>
+
     <!-- Insert your form HTML fields here -->
     <fieldset>
         <legend>Register</legend>
