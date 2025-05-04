@@ -25,50 +25,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["last_name"])) {
-        $errors[] = "Last Name is required";
+        $errors[] = "Invalid";
     } else {
         $last_name = clean_input($_POST["last_name"]);
         if (!preg_match("/^[a-zA-Z-' ]*$/", $last_name)) {
-            $errors[] = "Only letters and spaces allowed in Last Name";
+            $errors[] = "Invalid";
         }
     }
 
     if (empty($_POST["father_name"])) {
-        $errors[] = "Father's Name is required";
+        $errors[] = "Invalid";
     } else {
         $father_name = clean_input($_POST["father_name"]);
         if (!preg_match("/^[a-zA-Z-' ]*$/", $father_name)) {
-            $errors[] = "Only letters and spaces allowed in Father's Name";
+            $errors[] = "Invalid";
         }
     }
 
     if (empty($_POST["dob"])) {
-        $errors[] = "Date of Birth is required";
+        $errors[] = "Invalid";
     } else {
         $dob = $_POST["dob"];
     }
 
     if (empty($_POST["gender"])) {
-        $errors[] = "Gender is required";
+        $errors[] = "Invalid";
     } else {
         $gender = $_POST["gender"];
     }
 
     if (empty($_POST["email"])) {
-        $errors[] = "Email is required";
+        $errors[] = "Invalid";
     } else {
         $email = clean_input($_POST["email"]);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "Invalid email format";
+            $errors[] = "Invalid";
         }
     }
 
     if (empty($_POST["phone"])) {
-        $errors[] = "Phone Number is required";
+        $errors[] = "Invalid";
     } else {
         $phone = clean_input($_POST["phone"]);
         if (!preg_match("/^[0-9]{10,15}$/", $phone)) {
-            $errors[] = "Phone number must be 10-15 digits";
+            $errors[] = "Invalid";
         }
     }
 
@@ -101,45 +101,42 @@ function clean_input($data) {
 ?>
 
 <h2>Register</h2>
-<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on">
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on" novalidate>
-
-    <!-- Insert your form HTML fields here -->
     <fieldset>
         <legend>Register</legend>
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required autocomplete="given-name"><br><br>
+        <input type="text" id="first_name" name="first_name" autocomplete="given-name"><br><br>
 
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required autocomplete="family-name"><br><br>
+        <input type="text" id="last_name" name="last_name" autocomplete="family-name"><br><br>
 
         <label for="father_name">Father's Name:</label>
-        <input type="text" id="father_name" name="father_name" required autocomplete="off"><br><br>
+        <input type="text" id="father_name" name="father_name" autocomplete="off"><br><br>
 
         <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" required autocomplete="bday"><br><br>
+        <input type="date" id="dob" name="dob" autocomplete="bday"><br><br>
 
         <label>Gender:</label>
-        <input type="radio" id="male" name="gender" value="Male" required> <label for="male">Male</label>
-        <input type="radio" id="female" name="gender" value="Female" required> <label for="female">Female</label><br><br>
+        <input type="radio" id="male" name="gender" value="Male"> <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female"> <label for="female">Female</label><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required autocomplete="email"><br><br>
+        <input type="email" id="email" name="email" autocomplete="email"><br><br>
 
         <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required autocomplete="tel"><br><br>
+        <input type="tel" id="phone" name="phone" autocomplete="tel"><br><br>
     </fieldset>
 
     <fieldset>
         <legend>Address</legend>
         <label for="post_office">Post Office:</label>
-        <input type="text" id="post_office" name="post_office" required autocomplete="off"><br><br>
+        <input type="text" id="post_office" name="post_office" autocomplete="off"><br><br>
 
         <label for="postal_code">Postal Code:</label>
-        <input type="text" id="postal_code" name="postal_code" required autocomplete="postal-code"><br><br>
+        <input type="text" id="postal_code" name="postal_code" autocomplete="postal-code"><br><br>
 
         <label for="thana">Thana:</label>
-        <select id="thana" name="thana" required>
+        <select id="thana" name="thana">
             <option value="">Select Thana</option>
             <option value="Monohardi">Monohardi</option>
             <option value="Shibpur">Shibpur</option>
@@ -148,7 +145,7 @@ function clean_input($data) {
         </select><br><br>
 
         <label for="district">District:</label>
-        <select id="district" name="district" required>
+        <select id="district" name="district">
             <option value="">Select District</option>
             <option value="Narsingdi">Narsingdi</option>
             <option value="Narayanganj">Narayanganj</option>
@@ -157,7 +154,7 @@ function clean_input($data) {
         </select><br><br>
 
         <label for="division">Division:</label>
-        <select id="division" name="division" required>
+        <select id="division" name="division">
             <option value="">Select Division</option>
             <option value="Dhaka">Dhaka</option>
             <option value="Barishal">Barishal</option>
@@ -168,16 +165,16 @@ function clean_input($data) {
         </select><br><br>
 
         <label for="current_address">Current Address:</label>
-        <input type="text" id="current_address" name="current_address" required autocomplete="street-address"><br><br>
+        <input type="text" id="current_address" name="current_address" autocomplete="street-address"><br><br>
 
         <label for="permanent_address">Permanent Address:</label>
-        <input type="text" id="permanent_address" name="permanent_address" required autocomplete="street-address"><br><br>
+        <input type="text" id="permanent_address" name="permanent_address" autocomplete="street-address"><br><br>
     </fieldset>
 
     <fieldset>
         <legend>Vehicle</legend>
         <label for="car_brand">Car Brand:</label>
-        <select id="car_brand" name="car_brand" required>
+        <select id="car_brand" name="car_brand">
             <option value="">Select Car Brand</option>
             <option value="Toyota">Toyota</option>
             <option value="Volkswagen">Volkswagen</option>
@@ -190,10 +187,10 @@ function clean_input($data) {
         </select><br><br>
 
         <label for="license_number">License Number:</label>
-        <input type="text" id="license_number" name="license_number" required><br><br>
+        <input type="text" id="license_number" name="license_number"><br><br>
 
         <label for="car_one_color">Car One Color:</label>
-        <select id="car_one_color" name="car_one_color" required>
+        <select id="car_one_color" name="car_one_color">
             <option value="">Select Color</option>
             <option value="White">White</option>
             <option value="Black">Black</option>
@@ -204,7 +201,7 @@ function clean_input($data) {
         </select><br><br>
 
         <label for="car_service_count">How many cars do you need to service?</label>
-        <input type="number" id="car_service_count" name="car_service_count" min="1" required><br><br>
+        <input type="number" id="car_service_count" name="car_service_count" min="1"><br><br>
 
         <p>Note: After submitting this form, our service provider will call you.</p>
         <p>Thank you for taking our service.</p>

@@ -8,39 +8,40 @@
 <body>
     <h2>Register</h2>
     <form method="POST" action="" autocomplete="on">
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on" novalidate>
 
         <fieldset>
             <legend>Register</legend>
             <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" required autocomplete="given-name"><br><br>
+            <input type="text" id="first_name" name="first_name" ><br><br>
 
             <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" required autocomplete="family-name"><br><br>
+            <input type="text" id="last_name" name="last_name" ><br><br>
 
             <label for="father_name">Father's Name:</label>
-            <input type="text" id="father_name" name="father_name" required autocomplete="off"><br><br>
+            <input type="text" id="father_name" name="father_name" ><br><br>
 
             <label for="dob">Date of Birth:</label>
             <input type="date" id="dob" name="dob" required autocomplete="bday"><br><br>
 
             <label>Gender:</label>
-            <input type="radio" id="male" name="gender" value="Male" required> <label for="male">Male</label>
-            <input type="radio" id="female" name="gender" value="Female" required> <label for="female">Female</label><br><br>
+            <input type="radio" id="male" name="gender" value="Male" > <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female"> <label for="female">Female</label><br><br>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required autocomplete="email"><br><br>
+            <input type="email" id="email" name="email"><br><br>
 
             <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" required autocomplete="tel"><br><br>
+            <input type="tel" id="phone" name="phone" ><br><br>
         </fieldset>
 
         <fieldset>
             <legend>Address</legend>
             <label for="post_office">Post Office:</label>
-            <input type="text" id="post_office" name="post_office" required autocomplete="off"><br><br>
+            <input type="text" id="post_office" name="post_office" ><br><br>
 
             <label for="postal_code">Postal Code:</label>
-            <input type="text" id="postal_code" name="postal_code" required autocomplete="postal-code"><br><br>
+            <input type="text" id="postal_code" name="postal_code"><br><br>
 
             <label for="thana">Thana:</label>
             <select id="thana" name="thana" required>
@@ -72,10 +73,10 @@
             </select><br><br>
 
             <label for="current_address">Current Address:</label>
-            <input type="text" id="current_address" name="current_address" required autocomplete="street-address"><br><br>
+            <input type="text" id="current_address" name="current_address" ><br><br>
 
             <label for="permanent_address">Permanent Address:</label>
-            <input type="text" id="permanent_address" name="permanent_address" required autocomplete="street-address"><br><br>
+            <input type="text" id="permanent_address" name="permanent_address" ><br><br>
         </fieldset>
 
         <fieldset>
@@ -94,10 +95,10 @@
             </select><br><br>
 
             <label for="license_number">License Number:</label>
-            <input type="text" id="license_number" name="license_number" required><br><br>
+            <input type="text" id="license_number" name="license_number"><br><br>
 
             <label for="car_one_color">Car One Color:</label>
-            <select id="car_one_color" name="car_one_color" required>
+            <select id="car_one_color" name="car_one_color" >
                 <option value="">Select Color</option>
                 <option value="White">White</option>
                 <option value="Black">Black</option>
