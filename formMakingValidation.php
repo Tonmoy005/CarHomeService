@@ -2,171 +2,213 @@
 <html>
 <head>
     <title>Registration Form</title>
+    <style>
+        .error { color: red; }
+    </style>
 </head>
 <body>
 
 <?php
+$first_name = $last_name = $father_name = $dob = $gender = $email = $phone = "";
+$post_office = $postal_code = $thana = $district = $division = "";
+$current_address = $permanent_address = $car_brand = $license_number = $car_one_color = $car_service_count = "";
 $errors = [];
-$firstName = $lastName = $fatherName = $dob = $gender = "";
-$email = $phone = $postOffice = $postalCode = $thana = "";
-$district = $division = $currentAddress = $permanentAddress = "";
-$carBrand = $licenseNumber = $carColor = $carServiceCount = "";
-
-function clean($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["first_name"])) {
-        $errors[] = "Please enter your first name.";
+        $errors[] = "First Name is required";
     } else {
-        $firstName = clean($_POST["first_name"]);
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $firstName)) {
-            $errors[] = "First name can only contain letters and spaces.";
+        $first_name = clean_input($_POST["first_name"]);
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $first_name)) {
+            $errors[] = "Only letters and spaces allowed in First Name";
         }
     }
 
     if (empty($_POST["last_name"])) {
-        $errors[] = "Please enter your last name.";
+        $errors[] = "Last Name is required";
     } else {
-        $lastName = clean($_POST["last_name"]);
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $lastName)) {
-            $errors[] = "Last name can only contain letters and spaces.";
+        $last_name = clean_input($_POST["last_name"]);
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $last_name)) {
+            $errors[] = "Only letters and spaces allowed in Last Name";
         }
     }
 
     if (empty($_POST["father_name"])) {
-        $errors[] = "Please enter your father's name.";
+        $errors[] = "Father's Name is required";
     } else {
-        $fatherName = clean($_POST["father_name"]);
+        $father_name = clean_input($_POST["father_name"]);
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $father_name)) {
+            $errors[] = "Only letters and spaces allowed in Father's Name";
+        }
     }
 
     if (empty($_POST["dob"])) {
-        $errors[] = "Please enter your date of birth.";
+        $errors[] = "Date of Birth is required";
     } else {
         $dob = $_POST["dob"];
-        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $dob)) {
-            $errors[] = "Date of birth format is invalid.";
-        }
     }
 
     if (empty($_POST["gender"])) {
-        $errors[] = "Please select your gender.";
+        $errors[] = "Gender is required";
     } else {
         $gender = $_POST["gender"];
-        if ($gender !== "Male" && $gender !== "Female") {
-            $errors[] = "Invalid gender selected.";
-        }
     }
 
     if (empty($_POST["email"])) {
-        $errors[] = "Please enter your email.";
+        $errors[] = "Email is required";
     } else {
-        $email = clean($_POST["email"]);
+        $email = clean_input($_POST["email"]);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "Email address is not valid.";
+            $errors[] = "Invalid email format";
         }
     }
 
     if (empty($_POST["phone"])) {
-        $errors[] = "Please enter your phone number.";
+        $errors[] = "Phone Number is required";
     } else {
-        $phone = clean($_POST["phone"]);
+        $phone = clean_input($_POST["phone"]);
         if (!preg_match("/^[0-9]{10,15}$/", $phone)) {
-            $errors[] = "Phone number should be 10 to 15 digits.";
+            $errors[] = "Phone number must be 10-15 digits";
         }
     }
 
-    if (empty($_POST["post_office"])) {
-        $errors[] = "Please enter your post office.";
-    } else {
-        $postOffice = clean($_POST["post_office"]);
-    }
+    $post_office = clean_input($_POST["post_office"]);
+    $postal_code = clean_input($_POST["postal_code"]);
+    $thana = clean_input($_POST["thana"]);
+    $district = clean_input($_POST["district"]);
+    $division = clean_input($_POST["division"]);
+    $current_address = clean_input($_POST["current_address"]);
+    $permanent_address = clean_input($_POST["permanent_address"]);
+    $car_brand = clean_input($_POST["car_brand"]);
+    $license_number = clean_input($_POST["license_number"]);
+    $car_one_color = clean_input($_POST["car_one_color"]);
+    $car_service_count = clean_input($_POST["car_service_count"]);
 
-    if (empty($_POST["postal_code"])) {
-        $errors[] = "Please enter your postal code.";
+    if (empty($errors)) {
+        echo "<h3 style='color:green;'>Form submitted successfully!</h3>";
     } else {
-        $postalCode = clean($_POST["postal_code"]);
-        if (!preg_match("/^\d{4}$/", $postalCode)) {
-            $errors[] = "Postal code must be 4 digits.";
-        }
-    }
-
-    if (empty($_POST["thana"])) {
-        $errors[] = "Please select your thana.";
-    } else {
-        $thana = $_POST["thana"];
-    }
-
-    if (empty($_POST["district"])) {
-        $errors[] = "Please select your district.";
-    } else {
-        $district = $_POST["district"];
-    }
-
-    if (empty($_POST["division"])) {
-        $errors[] = "Please select your division.";
-    } else {
-        $division = $_POST["division"];
-    }
-
-    if (empty($_POST["current_address"])) {
-        $errors[] = "Please enter your current address.";
-    } else {
-        $currentAddress = clean($_POST["current_address"]);
-    }
-
-    if (empty($_POST["permanent_address"])) {
-        $errors[] = "Please enter your permanent address.";
-    } else {
-        $permanentAddress = clean($_POST["permanent_address"]);
-    }
-
-    if (empty($_POST["car_brand"])) {
-        $errors[] = "Please select your car brand.";
-    } else {
-        $carBrand = $_POST["car_brand"];
-    }
-
-    if (empty($_POST["license_number"])) {
-        $errors[] = "Please enter your license number.";
-    } else {
-        $licenseNumber = clean($_POST["license_number"]);
-        if (!preg_match("/^[A-Z0-9-]+$/i", $licenseNumber)) {
-            $errors[] = "License number can only have letters, numbers, and dashes.";
-        }
-    }
-
-    if (empty($_POST["car_one_color"])) {
-        $errors[] = "Please select your car color.";
-    } else {
-        $carColor = $_POST["car_one_color"];
-    }
-
-    if (empty($_POST["car_service_count"])) {
-        $errors[] = "Please enter how many cars need service.";
-    } else {
-        $carServiceCount = $_POST["car_service_count"];
-        if (!filter_var($carServiceCount, FILTER_VALIDATE_INT, ["options" => ["min_range" => 1]])) {
-            $errors[] = "Number of cars must be a positive number.";
-        }
-    }
-
-    if ($errors) {
-        echo "<h3>Please fix the following issues:</h3><ul>";
+        echo "<h3 class='error'>Please fix the following errors:</h3><ul class='error'>";
         foreach ($errors as $error) {
             echo "<li>$error</li>";
         }
         echo "</ul>";
-    } else {
-        echo "<h3>Thank you! Your registration was successful.</h3>";
     }
+}
+
+function clean_input($data) {
+    return htmlspecialchars(stripslashes(trim($data)));
 }
 ?>
 
 <h2>Register</h2>
-<form method="POST" action="" autocomplete="on">
-    <!-- Paste your original form HTML here as it is -->
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="on">
+    <!-- Insert your form HTML fields here -->
+    <fieldset>
+        <legend>Register</legend>
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required autocomplete="given-name"><br><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required autocomplete="family-name"><br><br>
+
+        <label for="father_name">Father's Name:</label>
+        <input type="text" id="father_name" name="father_name" required autocomplete="off"><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required autocomplete="bday"><br><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male" required> <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female" required> <label for="female">Female</label><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required autocomplete="email"><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required autocomplete="tel"><br><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Address</legend>
+        <label for="post_office">Post Office:</label>
+        <input type="text" id="post_office" name="post_office" required autocomplete="off"><br><br>
+
+        <label for="postal_code">Postal Code:</label>
+        <input type="text" id="postal_code" name="postal_code" required autocomplete="postal-code"><br><br>
+
+        <label for="thana">Thana:</label>
+        <select id="thana" name="thana" required>
+            <option value="">Select Thana</option>
+            <option value="Monohardi">Monohardi</option>
+            <option value="Shibpur">Shibpur</option>
+            <option value="Narsingdi Sadar">Narsingdi Sadar</option>
+            <option value="Madhobdi">Madhobdi</option>
+        </select><br><br>
+
+        <label for="district">District:</label>
+        <select id="district" name="district" required>
+            <option value="">Select District</option>
+            <option value="Narsingdi">Narsingdi</option>
+            <option value="Narayanganj">Narayanganj</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Gazipur">Gazipur</option>
+        </select><br><br>
+
+        <label for="division">Division:</label>
+        <select id="division" name="division" required>
+            <option value="">Select Division</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Barishal">Barishal</option>
+            <option value="Chattagram">Chattagram</option>
+            <option value="Khulna">Khulna</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Rangpur">Rangpur</option>
+        </select><br><br>
+
+        <label for="current_address">Current Address:</label>
+        <input type="text" id="current_address" name="current_address" required autocomplete="street-address"><br><br>
+
+        <label for="permanent_address">Permanent Address:</label>
+        <input type="text" id="permanent_address" name="permanent_address" required autocomplete="street-address"><br><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Vehicle</legend>
+        <label for="car_brand">Car Brand:</label>
+        <select id="car_brand" name="car_brand" required>
+            <option value="">Select Car Brand</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Volkswagen">Volkswagen</option>
+            <option value="Mercedes-Benz">Mercedes-Benz</option>
+            <option value="BMW">BMW</option>
+            <option value="Ford">Ford</option>
+            <option value="General Motors (GM)">General Motors (GM)</option>
+            <option value="Honda">Honda</option>
+            <option value="Tesla">Tesla</option>
+        </select><br><br>
+
+        <label for="license_number">License Number:</label>
+        <input type="text" id="license_number" name="license_number" required><br><br>
+
+        <label for="car_one_color">Car One Color:</label>
+        <select id="car_one_color" name="car_one_color" required>
+            <option value="">Select Color</option>
+            <option value="White">White</option>
+            <option value="Black">Black</option>
+            <option value="Gray">Gray</option>
+            <option value="Silver">Silver</option>
+            <option value="Blue">Blue</option>
+            <option value="Red">Red</option>
+        </select><br><br>
+
+        <label for="car_service_count">How many cars do you need to service?</label>
+        <input type="number" id="car_service_count" name="car_service_count" min="1" required><br><br>
+
+        <p>Note: After submitting this form, our service provider will call you.</p>
+        <p>Thank you for taking our service.</p>
+    </fieldset>
+
+    <button type="submit"><b>Submit</b></button>
 </form>
 
 </body>
